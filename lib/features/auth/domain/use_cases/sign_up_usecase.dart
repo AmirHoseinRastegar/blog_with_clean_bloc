@@ -11,7 +11,7 @@ class SignUpUseCase implements UseCaseInterface<UserEntity, SignUpParams> {
   SignUpUseCase({required this.authRepository});
 
   @override
-  Future<Either<Failure, UserEntity>> call(params) async {
+  Future<Either<Failure, UserEntity>> call(SignUpParams params) async {
     return await authRepository.signup(
       name: params.name,
       email: params.email,

@@ -11,6 +11,13 @@ class BlogScreenTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return '$hintText cannot be empty';
+        } else {
+          return null;
+        }
+      },
 
       ///when we set max lines to null,the textfield extends itself when
       ///the line is filled and goes bottom

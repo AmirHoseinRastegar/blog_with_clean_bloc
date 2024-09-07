@@ -1,5 +1,6 @@
 import 'package:blog/core/theme/app_theme.dart';
 import 'package:blog/features/auth/presentation/pages/login_page.dart';
+import 'package:blog/features/blog/presentation/blocs/blog_bloc.dart';
 import 'package:blog/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,8 @@ void main() async {
         ),
         BlocProvider(
           create: (_) => locator<UserSeissionCubit>(),
+        ), BlocProvider(
+          create: (_) => locator<BlogBloc>(),
         ),
       ],
       child: const MyApp(),
@@ -40,7 +43,6 @@ class _MyAppState extends State<MyApp> {
     BlocProvider.of<AuthBloc>(context).add(IsUserLoggedIn());
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

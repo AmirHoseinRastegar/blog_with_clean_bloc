@@ -12,13 +12,16 @@ class AppTheme {
     chipTheme: const ChipThemeData(
       color: MaterialStatePropertyAll(AppPallete.backgroundColor),
       side: BorderSide.none,
-
     ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(27),
       enabledBorder: _border,
+      border: _border,
       focusedBorder: _border.copyWith(
         borderSide: const BorderSide(color: AppPallete.gradient2, width: 3),
+      ),
+      errorBorder: _border.copyWith(
+        borderSide: const BorderSide(color: AppPallete.errorColor, width: 3),
       ),
     ),
   );

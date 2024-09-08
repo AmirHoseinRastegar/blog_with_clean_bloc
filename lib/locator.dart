@@ -3,6 +3,7 @@ import 'package:blog/features/auth/data/repository/repositoryimpl.dart';
 import 'package:blog/features/auth/domain/repository/auth_repository.dart';
 import 'package:blog/features/auth/domain/use_cases/login_usecase.dart';
 import 'package:blog/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:blog/features/blog/domain/use_cases/get_all_blogs_usecase.dart';
 import 'package:blog/features/blog/presentation/blocs/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -45,10 +46,15 @@ void _initBlog() {
       locator(),
     ),
   );
+  locator.registerFactory(
+    () => GetALlBlogsUseCase(
+      locator(),
+    ),
+  );
   locator.registerLazySingleton(
     () => BlogBloc(
       locator(),
-
+      locator(),
     ),
   );
 }

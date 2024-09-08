@@ -211,7 +211,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                       ),
                       BlogScreenTextField(
                           controller: _blogDescriptionController,
-                          hintText: 'Blog title'),
+                          hintText: 'Blog Description'),
                     ],
                   ),
                 ),

@@ -1,15 +1,15 @@
 import '../../domain/entity/blog_entity.dart';
 
 class BlogModel extends BlogEntity {
-  BlogModel({
-    required super.title,
-    required super.id,
-    required super.posterId,
-    required super.content,
-    required super.imageUrl,
-    required super.topics,
-    required super.updatedAt,
-  });
+  BlogModel(
+      {required super.title,
+      required super.id,
+      required super.posterId,
+      required super.content,
+      required super.imageUrl,
+      required super.topics,
+      required super.updatedAt,
+      super.name});
 
   Map<String, dynamic> toJson() => {
         'title': title,
@@ -41,14 +41,17 @@ class BlogModel extends BlogEntity {
     String? imageUrl,
     List<String>? topics,
     DateTime? updatedAt,
+    String? name,
   }) {
     return BlogModel(
-        title: title ?? this.title,
-        id: id ?? this.id,
-        posterId: posterId ?? this.posterId,
-        content: content ?? this.content,
-        imageUrl: imageUrl ?? this.imageUrl,
-        topics: topics ?? this.topics,
-        updatedAt: updatedAt ?? this.updatedAt);
+      title: title ?? this.title,
+      id: id ?? this.id,
+      posterId: posterId ?? this.posterId,
+      content: content ?? this.content,
+      imageUrl: imageUrl ?? this.imageUrl,
+      topics: topics ?? this.topics,
+      updatedAt: updatedAt ?? this.updatedAt,
+      name: name ?? this.name,
+    );
   }
 }

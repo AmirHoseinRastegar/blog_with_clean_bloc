@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
-  const AuthAppBar({super.key, this.title});
+  const CustomAppBar({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {

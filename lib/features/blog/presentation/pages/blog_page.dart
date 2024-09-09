@@ -2,7 +2,7 @@ import 'package:blog/core/constants/loader.dart';
 import 'package:blog/core/theme/app_colors.dart';
 import 'package:blog/core/utils/snakbar.dart';
 import 'package:blog/features/blog/presentation/blocs/blog_bloc.dart';
-import 'package:blog/features/blog/presentation/pages/add_blog.dart';
+import 'package:blog/features/blog/presentation/pages/add_blog_page.dart';
 import 'package:blog/features/blog/presentation/widgets/blog_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +54,7 @@ class _BlogPageState extends State<BlogPage> {
             return const AppLoader();
           } else if (state is BlogGetALlBlogsSuccess) {
             return ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: state.blogs.length,
               itemBuilder: (context, index) {
                 final blog = state.blogs[index];

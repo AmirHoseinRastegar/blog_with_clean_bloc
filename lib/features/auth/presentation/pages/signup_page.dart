@@ -36,7 +36,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AuthAppBar(),
+      appBar: const CustomAppBar(),
       body: SizedBox(
         width: double.infinity,
         child: Padding(

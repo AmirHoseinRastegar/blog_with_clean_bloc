@@ -1,11 +1,16 @@
+import 'package:blog/core/connection/internet_connection.dart';
 import 'package:blog/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:blog/features/auth/data/repository/repositoryimpl.dart';
 import 'package:blog/features/auth/domain/repository/auth_repository.dart';
 import 'package:blog/features/auth/domain/use_cases/login_usecase.dart';
 import 'package:blog/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:blog/features/blog/data/data_sources/local/blog_local_data_source.dart';
 import 'package:blog/features/blog/domain/use_cases/get_all_blogs_usecase.dart';
 import 'package:blog/features/blog/presentation/blocs/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/constants/constants.dart';
@@ -26,8 +31,17 @@ Future<void> setupLocator() async {
       url: Constants.supaBaseUrl, anonKey: Constants.supaBaseAnonKey);
   locator.registerLazySingleton(() => supabase.client);
 
+  Hive.defaultDirectory = (await getApplicationDocumentsDirectory()).path;
+
   ///core
+  locator.registerLazySingleton(() => Hive.box(name: 'blogs'));
   locator.registerLazySingleton(() => UserSeissionCubit());
+  locator.registerFactory(() => InternetConnection());
+  locator.registerFactory<ConnectionChecker>(
+    () => ConnectionCheckerImpl(
+      locator(),
+    ),
+  );
 }
 
 void _initBlog() {
@@ -39,6 +53,8 @@ void _initBlog() {
   locator.registerFactory<BlogRepository>(
     () => BlogRepositoryImpl(
       blogRemoteDataSource: locator(),
+      locator(),
+      locator(),
     ),
   );
   locator.registerFactory(
@@ -57,6 +73,9 @@ void _initBlog() {
       locator(),
     ),
   );
+  locator.registerLazySingleton<LocalBlogDataSource>(
+    () => LocalBlogDataSourceImpl(box: locator()),
+  );
 }
 
 void _initAuth() {
@@ -69,8 +88,7 @@ void _initAuth() {
   );
   locator.registerFactory<AuthRepository>(
     () => AuthRepositoryImpl(
-      authRemoteDataSource: locator(),
-    ),
+        authRemoteDataSource: locator(), locator(), locator()),
   );
   locator.registerFactory(
     () => SignUpUseCase(
